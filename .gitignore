@@ -208,3 +208,7 @@ __marimo__/
 
 # AI Code Assistant
 .codex
+
+# Project data artifacts
+data/raw/*.csv
+data/*.csv

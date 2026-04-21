@@ -1,0 +1,9 @@
+metric,value
+raw_rows,52478
+clean_rows,37289
+rows_after_year_filter_and_bookid_dedupe,37289
+min_first_publish_year,1997
+max_first_publish_year,2024
+missing_bbeVotes_clean,36
+missing_description_clean,544
+missing_genres,3897

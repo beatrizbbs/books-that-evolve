@@ -1,0 +1,28 @@
+column,description
+first_publish_year,Cleaned first publication year; invalid/missing values are NA.
+in_project_scope_1997_2024,True when first_publish_year is inside the README scope.
+title_clean,Whitespace/control-character cleaned title for display.
+title_key,Lowercase accent-stripped title key for matching and dedupe.
+author_clean,Author/contributor string with parenthetical role labels removed.
+primary_author,First listed cleaned author.
+author_key,Lowercase accent-stripped primary author key for matching.
+genres_clean,JSON list of cleaned Goodreads genre labels.
+genres_key,JSON list of normalized genre keys.
+genre_count,Number of parsed genres.
+primary_genre,First Goodreads genre label when present.
+has_youth_genre,"True when genres include young adult, teen, middle grade, or childrens."
+description_clean,"HTML-unescaped, whitespace-normalized description."
+description_word_count,Word count from description_clean.
+averageRating,Numeric cleaned version of raw rating.
+numRatings_clean,Numeric cleaned version of raw numRatings.
+bbeVotes_clean,Numeric cleaned version of raw bbeVotes; invalid negatives set to NA.
+likedPercent_clean,Numeric cleaned version of raw likedPercent.
+pages_clean,Numeric cleaned version of raw pages.
+price_clean,Numeric cleaned version of raw price.
+isbn_clean,Clean ISBN/identifier with placeholder 9999999999999 set to blank.
+isbn_type,"Identifier type: isbn13, isbn10, asin, other_identifier, or missing_or_placeholder."
+duplicate_book_id,True when raw bookId appears more than once.
+duplicate_title_author_key,True when cleaned title and author keys repeat.
+duplicate_clean_isbn,True when nonblank cleaned ISBN/identifier repeats.
+analysis/books_analysis.csv,Default analysis file: 1997-2024 scope and duplicate bookId rows removed.
+analysis/books_work_level.csv,"Canonical work-level file: books_analysis additionally deduped by title_key, author_key, and first_publish_year."

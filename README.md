@@ -1,305 +1,186 @@
 <h1 align="center">
   <br>
-  <a href="assets/logo.png"><img src="assets/logo.png" alt="Books That Evolve Logo" width="200"></a>
+  <a href="assets/logo.png"><img src="assets/logo.png" alt="Books That Evolve Logo" width="190"></a>
   <br>
-  Books That Evolve: <br> A Cultural Memory Analysis of Modern Reading Eras
+  Books That Evolve
   <br>
 </h1>
 
-<h4 align="center">A cultural memory analysis of modern reading eras through Goodreads-canonized youth fiction during 1997–2024.</h4>
+<h4 align="center">A cultural memory analysis of Goodreads youth-fiction eras, 1997-2021.</h4>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Python-c59a6d?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="15"/>
   <img src="https://img.shields.io/badge/Pandas-996b53?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" height="15"/>
   <img src="https://img.shields.io/badge/NumPy-a86060?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="15"/>
   <img src="https://img.shields.io/badge/Matplotlib-9e9268?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="15"/>
   <img src="https://img.shields.io/badge/Jupyter-ac8862?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="15"/>
-  <img src="https://img.shields.io/badge/Tableau-866031?style=for-the-badge&logo=tableau&logoColor=white" alt="Tableau" height="15"/>
 </p>
 
 <p align="center">
   <a href="#overview">Overview</a> •
-  <a href="#project-goal">Project Goal</a> •
-  <a href="#dataset">Dataset</a> •
-  <a href="#scope">Scope</a> •
-  <a href="#method">Method</a> •
-  <a href="#results">Analysis</a> •
-  <a href="#results">Results</a> •
-  <a href="#visualizations">Visualizations</a>  •
+  <a href="#main-results">Results</a> •
+  <a href="#report">Report</a> •
+  <a href="#data-and-method">Data & Method</a> •
   <a href="#repo-structure">Repo Structure</a> •
-  <a href="#how-to-run">How to Run</a>
+  <a href="#reproduce-the-analysis">Reproduce</a>
 </p>
 
 ## Overview
 
-This project explores how **beloved youth-fiction books**—particularly those that remained highly visible on Goodreads—reflect shifting cultural trends from the late 1990s through the 2020s.
+This project studies how culturally visible youth fiction changed across modern reading eras. It uses the Goodreads "Best Books Ever" dataset as a proxy for reader memory: not everything that was published, but the books that accumulated ratings, affection, list recognition, and long-term platform visibility.
 
-Rather than analyzing the full publishing market, this project focuses on **books that endured**: titles that accumulated long-term reader attention, affection, and recognition. These books form a kind of **collective reading memory**, capturing not just what was published, but what *stuck*.
+The analysis asks whether familiar reading-era narratives appear in the data. Was there a middle grade fantasy era? A paranormal wave? A dystopian boom? A high-fantasy or romantasy turn? The answer is yes, but with nuance. Goodreads youth-fiction memory moves through recognizable eras, while also being strongly shaped by a small number of highly visible series.
 
-The goal is to trace how dominant themes evolved across modern reading eras—from middle grade fantasy and mythology-driven adventures to paranormal romance, dystopian fiction, and later forms of fantasy.
+This is not a publishing-market report. It is a cultural-memory analysis: a study of what stuck.
 
----
+## Main Results
 
-## Project Goal
+The final scoped dataset contains **6,552** young adult, middle grade, and crossover books first published between **1997 and 2021**. Theme eras were identified from changes in annual theme popularity share.
 
-### Primary Question
+| Era | Short Description |
+| --- | --- |
+| **1997-2008** | **The Middle Grade Fantasy Era**: Harry Potter and Percy Jackson anchor a period where school, magic, quests, and long-running fantasy worlds dominate Goodreads memory. |
+| **2009-2013** | **The Paranormal Wave**: Paranormal / Supernatural becomes the leading theme, while Paranormal Romance rises beside it. |
+| **2014-2018** | **The Mixed Speculative Era**: Dystopia remains highly visible, but the broader Science Fiction bucket ranks first overall while high fantasy gains ground. |
+| **2019-2021** | **The High Fantasy Turn**: Epic / High Fantasy leads the smaller recent sample, with romantasy becoming more visible but still modest in scale. |
 
-* **How did the dominant themes in beloved youth-fiction books change from 1997 to 2024?**
+### Theme Popularity Over Time
 
-### Secondary Questions
+![Theme popularity share over time](outputs/report/charts/01_theme_popularity_share_over_time.png)
 
-* Which genres or themes defined different reading eras?
-* Were perceived trends driven by broad movements or a few blockbuster series?
-* How did the *anguage of book titles and descriptions evolve over time?
+### Data-Driven Era Boundaries
 
----
+![Data-driven era boundaries](outputs/report/charts/02_data_driven_era_boundaries.png)
 
-## Dataset
+### Theme Mix by Era
 
-This project uses the **Goodreads “Best Books Ever” dataset** from Kaggle (~52,000 books, 25+ features).
+![Theme mix by era](outputs/report/charts/03_theme_mix_by_era.png)
 
-### Key Fields
+## Report
 
-* `title`
-* `author`
-* `firstPublishDate`
-* `genres`
-* `description`
-* `numRatings`
-* `averageRating`
-* `bbeVotes`, `bbeScore`
+The full narrative report is here:
 
-### Why This Dataset?
+**[Read the full analysis report](Report.md)**
 
-Unlike a full publishing catalog, this dataset reflects:
+The report is structured as an era-driven data essay. It moves through the four reading eras, then steps back to examine two cross-era patterns: visibility concentration and vocabulary change.
 
-* Long-term reader engagement
-* Cultural visibility
-* Canonized books that remain widely discussed
+Report-ready supporting assets:
 
-It is therefore well-suited for analyzing **cultural memory rather than market output**.
+- Final charts: `outputs/report/charts/`
+- Final tables: `outputs/report/tables/`
+- Final visuals notebook: `notebooks/final_analysis_visuals.ipynb`
+- Detailed methodology: `Methodology.md`
 
-### Limitations
+## Key Patterns
 
-* Not a complete sample of all published books
-* Skewed toward popular and highly rated titles
-* Overrepresents blockbuster series and enduring favorites
-* Missing or inconsistent metadata in some fields
-* Reflects Goodreads user behavior (platform bias)
+**Middle grade fantasy anchors the earliest period.** In 1997-2008, Middle Grade Fantasy accounts for 36.8% of era weighted popularity, far ahead of the next themes. Harry Potter and Percy Jackson are central to how this era is remembered.
 
----
+**The paranormal wave is the clearest genre surge.** In 2009-2013, Paranormal / Supernatural becomes the top theme at 24.2% of weighted popularity, while Paranormal Romance reaches 16.4%. Both streams peak annually in 2011.
 
-## Scope
+**Dystopia is visible, but not the whole 2010s story.** Dystopian and post-apocalyptic books are culturally important, especially through *The Hunger Games*, *Divergent*, and *The Selection*. But in 2014-2018, the broader Science Fiction category ranks first overall, and Epic / High Fantasy is close behind.
 
-### Time Range
+**Blockbuster series amplify cultural memory.** In 1997-2008, books tagged as `blockbuster_franchise` make up only 3.6% of scoped books but account for 63.7% of ratings. Goodreads memory is not only shaped by broad theme movement; it is also concentrated around a small number of highly visible series.
 
-1997–2024
+![Visibility concentration curve](outputs/report/charts/04_visibility_concentration_curve.png)
 
-### Included Books
+**Vocabulary changes with the eras.** Early tracked keywords include `magic`, `school`, `dragon`, and `kingdom`. During the paranormal wave, `angel` and `academy` become newly prominent. In 2014-2018, `court` and `realm` become newly prominent, supporting the shift toward courtly and secondary-world fantasy language.
 
-* Young Adult (YA)
-* Middle Grade (MG)
-* Crossover titles
+![Keyword prominence heatmap](outputs/report/charts/05_keyword_prominence_heatmap.png)
 
-**Crossover books** are defined as titles not always explicitly shelved as YA or MG, but widely read or culturally associated with youth audiences.
+## Data and Method
 
-### Unit of Analysis
+The source data is the Goodreads "Best Books Ever" dataset from Kaggle:
 
-* Individual books (not series as a single unit)
-* Grouped by **first publication year**
+<https://www.kaggle.com/datasets/pooriamst/best-books-ever-dataset>
 
-### Series Handling
+The raw dataset contains **52,478** Goodreads records with book metadata, authors, publication dates, genres, descriptions, ratings, average ratings, and Goodreads "Best Books Ever" voting fields. The raw Kaggle file and generated book-level CSVs are intentionally not committed to GitHub. The repository keeps the scripts, compact summaries, final outputs, and documentation needed to reproduce the analysis locally.
 
-* Books analyzed individually
-* Series membership flagged to study **blockbuster effects**
+The pipeline:
 
-### Thematic Focus
+1. Cleans publication dates, authors, genres, descriptions, and numeric fields.
+2. Filters to youth fiction and project-relevant speculative or adjacent themes.
+3. Assigns audience labels, theme tags, and a `series_flag`.
+4. Builds a composite `popularity_score`.
+5. Exports final era tables, charts, exploratory tables, and report visuals.
 
-The project considers youth fiction broadly, with emphasis on:
+Popularity score:
 
-* Middle grade fantasy
-* Mythology / adventure
-* Paranormal / supernatural
-* Dystopian fiction
-* Epic / high fantasy
-* Romantasy-adjacent trends
+```text
+popularity_score =
+0.5 * z(log1p(numRatings_clean))
++ 0.3 * z(averageRating)
++ 0.2 * z(log1p(bbeVotes_clean))
+```
 
----
+The score is designed to combine reader visibility, reader affection, and Goodreads list canonization. It is not a sales measure.
 
-## Method
+## Limitations
 
-### 1. Data Cleaning
-
-* Standardized publication dates
-* Cleaned genres and descriptions
-* Removed duplicates and invalid records
-
-### 2. Feature Engineering
-
-#### Time Features
-
-* Extracted `first_publish_year`
-* Created era groupings:
-
-  * 1997–2004
-  * 2005–2012
-  * 2013–2018
-  * 2019–2024
-
-#### Theme Buckets
-
-Custom categories created using keyword-based tagging from:
-
-* Genres
-* Titles
-* Descriptions
-
-Examples:
-
-* Middle Grade Fantasy
-* Paranormal Romance
-* Dystopian
-* Epic / High Fantasy
-* Fae / Romantasy
-
-#### Popularity Score
-
-A composite score capturing cultural impact:
-
-$$
-\text{Popularity Score} =
-0.5 \cdot z(\log(1 + \text{numRatings})) +
-0.3 \cdot z(\text{averageRating}) +
-0.2 \cdot z(\log(1 + \text{bbeVotes}))
-$$
-
-This integrates:
-
-* **Visibility** (ratings count)
-* **Affection** (average rating)
-* **Canonization** (Goodreads voting)
-
----
-
-## Analysis
-
-The analysis focuses on:
-
-### Theme Trends Over Time
-
-* Share of popularity by theme across years
-* Identification of dominant genres in each era
-
-### Era-Defining Books
-
-* Top books by popularity score within each period
-* Identification of key authors and series
-
-### Keyword Evolution
-
-Tracking changes in language across decades:
-
-* “vampire”, “academy”, “dystopia”
-* “kingdom”, “fae”, “court”, “shadow”
-
-### Blockbuster Effect
-
-* Comparing trends with and without top-performing books
-* Measuring influence of major series
-
----
-
-## Results
-
-Key findings include:
-
-* Clear **genre waves** across modern youth fiction
-* Evidence that a small number of blockbuster series strongly shaped perceived trends
-* Evolution not just in genre, but in **tone and vocabulary**
-
----
-
-## Visualizations
-
-The project includes:
-
-* Theme dominance over time
-* Era-based genre comparisons
-* Top books per era
-* Keyword trend charts
-
-(*Dashboard version planned in future work*)
-
----
+This project analyzes Goodreads visibility, not the full publishing market. Goodreads data is shaped by platform behavior, reader demographics, missing metadata, and long-term rating accumulation. The theme system is rule-based and transparent, but imperfect. Books can belong to multiple themes, and categories such as Dystopian / Post-Apocalyptic and Science Fiction naturally overlap. The most recent era is also smaller than the earlier ones, so 2019-2021 should be treated as directional rather than definitive.
 
 ## Repo Structure
 
-```bash
+```text
 books-that-evolve/
-│
-├── data/               # Raw and cleaned datasets
-├── notebooks/          # Cleaning, EDA, feature engineering
-├── outputs/            # Final charts and tables
-├── assets/             # Images / visuals
+├── assets/                  # Logo and durable project visuals
+├── data/                    # Local datasets and committed run summaries
+│   ├── raw/                 # Local Kaggle CSV goes here; not committed
+│   └── reference/           # Compact pipeline summary CSVs
+├── notebooks/
+│   └── final_analysis_visuals.ipynb
+├── outputs/
+│   ├── charts/              # Final pipeline charts
+│   ├── tables/              # Final pipeline tables
+│   ├── exploratory/         # Exploratory tables and findings draft
+│   └── report/              # Report-ready charts and tables
+├── scripts/                 # Reproducible processing pipeline
+├── Methodology.md
+├── Report.md
 ├── README.md
 └── requirements.txt
 ```
 
----
+## Reproduce the Analysis
 
-## How to Run
+Install dependencies:
 
 ```bash
 git clone https://github.com/beatrizbbs/books-that-evolve.git
 cd books-that-evolve
-pip install -r requirements.txt
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
 ```
 
-Open notebooks in Jupyter:
+Download the Kaggle dataset and place the source CSV at:
+
+```text
+data/raw/books_goodreads.csv
+```
+
+Run the full pipeline:
 
 ```bash
-jupyter notebook
+.venv/bin/python scripts/01_clean_books.py
+.venv/bin/python scripts/02_scope_books.py
+.venv/bin/python scripts/03_score_books.py
+.venv/bin/python scripts/04_export_theme_era_outputs.py
+.venv/bin/python scripts/05_exploratory_analysis.py
 ```
 
----
+Generate the report visuals notebook:
+
+```bash
+.venv/bin/jupyter nbconvert --to notebook --execute --inplace notebooks/final_analysis_visuals.ipynb
+```
 
 ## Next Steps
 
-* Improve genre classification using NLP or embeddings
-* Add topic modeling for deeper theme discovery
-* Integrate additional datasets (Open Library, Google Books)
-* Build interactive dashboard (Streamlit or Tableau)
-* Refine blockbuster/series analysis
-
----
-
-## Project Framing
-
-This is not a traditional market analysis.
-
-It is a **cultural reading-history project**—an exploration of how readers collectively remember and define literary eras through the books that endured.
-
----
-
-## Inspiration
-
-This project was inspired by personal observations of shifting reading trends—from the dominance of middle grade fantasy to paranormal romance, dystopian fiction, and evolving fantasy subgenres—and the question of whether these perceived “eras” are reflected in data.
-
----
+- Add newer data to strengthen the post-2021 analysis.
+- Manually audit top-ranked books to refine theme tags.
+- Improve classification of romantasy and dystopian/science-fiction overlap.
+- Compare Goodreads memory against publication-market or sales data if available.
+- Turn the static report into an interactive dashboard later.
 
 ## License
 
 This project is released under the MIT License.
-
----
-
-## Final Note
-
-This project combines:
-
-* Data cleaning
-* Feature engineering
-* Text analysis
-* Cultural interpretation
-
-To explore not just **what books existed**, but **which ones mattered and why they lasted**.
-

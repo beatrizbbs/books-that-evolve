@@ -77,6 +77,8 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+notebooks/*.ipynb
+!notebooks/final_analysis_visuals.ipynb
 
 # IPython
 profile_default/
@@ -208,7 +210,11 @@ __marimo__/
 
 # AI Code Assistant
 .codex
+.agents
 
 # Project data artifacts
 data/raw/*.csv
 data/*.csv
+
+# Local generated caches
+outputs/exploratory/charts/

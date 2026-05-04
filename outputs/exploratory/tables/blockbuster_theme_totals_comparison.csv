@@ -1,0 +1,41 @@
+scenario,theme_label,weighted_popularity
+all_books,Middle Grade Fantasy,9268.020012357625
+all_books,Paranormal / Supernatural,8133.702691214888
+all_books,Science Fiction,7509.626173549992
+all_books,Epic / High Fantasy,6024.725306401837
+all_books,Paranormal Romance,4637.3817192650795
+all_books,Dystopian / Post-Apocalyptic,3512.63653560408
+all_books,Mythology Adventure,2100.0730111271846
+all_books,Romantasy,1087.2005519012102
+blockbuster_franchise_only,Science Fiction,424.8075615346797
+blockbuster_franchise_only,Middle Grade Fantasy,393.47659758632915
+blockbuster_franchise_only,Paranormal / Supernatural,337.203291040899
+blockbuster_franchise_only,Dystopian / Post-Apocalyptic,334.33879384710605
+blockbuster_franchise_only,Epic / High Fantasy,277.19365935478083
+blockbuster_franchise_only,Paranormal Romance,237.77297331683232
+blockbuster_franchise_only,Mythology Adventure,127.2364991128637
+blockbuster_franchise_only,Romantasy,94.20163058178854
+non_blockbuster_franchise,Middle Grade Fantasy,8874.543414771297
+non_blockbuster_franchise,Paranormal / Supernatural,7796.499400173989
+non_blockbuster_franchise,Science Fiction,7084.818612015312
+non_blockbuster_franchise,Epic / High Fantasy,5747.531647047056
+non_blockbuster_franchise,Paranormal Romance,4399.608745948247
+non_blockbuster_franchise,Dystopian / Post-Apocalyptic,3178.297741756974
+non_blockbuster_franchise,Mythology Adventure,1972.8365120143205
+non_blockbuster_franchise,Romantasy,992.9989213194216
+top_1pct_capped,Middle Grade Fantasy,9254.174797031874
+top_1pct_capped,Paranormal / Supernatural,8130.454667052119
+top_1pct_capped,Science Fiction,7505.70331404133
+top_1pct_capped,Epic / High Fantasy,6021.261094307868
+top_1pct_capped,Paranormal Romance,4634.222747049431
+top_1pct_capped,Dystopian / Post-Apocalyptic,3509.0455538756237
+top_1pct_capped,Mythology Adventure,2097.3871593922536
+top_1pct_capped,Romantasy,1086.148972596431
+top_1pct_removed,Middle Grade Fantasy,9124.605049928832
+top_1pct_removed,Paranormal / Supernatural,8063.53402843846
+top_1pct_removed,Science Fiction,7424.544241680085
+top_1pct_removed,Epic / High Fantasy,5923.015901449518
+top_1pct_removed,Paranormal Romance,4575.845168684325
+top_1pct_removed,Dystopian / Post-Apocalyptic,3449.2441321357587
+top_1pct_removed,Mythology Adventure,2061.7910750232863
+top_1pct_removed,Romantasy,1051.9767316022223

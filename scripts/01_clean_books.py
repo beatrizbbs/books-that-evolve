@@ -176,6 +176,14 @@ def build_clean_dataset(raw: pd.DataFrame) -> pd.DataFrame:
         clean_year = year
         if pd.isna(year):
             invalid_reason = "missing_or_unparseable_year"
+        elif (
+            source == "firstPublishDate"
+            and status == "two_digit_year_inferred_modern"
+            and int(year) >= 2022
+            and pd.isna(row["publish_year_for_disambiguation"])
+        ):
+            clean_year = pd.NA
+            invalid_reason = "ambiguous_two_digit_first_publish_year_without_publish_year"
         elif int(year) < MIN_VALID_PUBLICATION_YEAR:
             clean_year = pd.NA
             invalid_reason = "before_min_valid_publication_year"

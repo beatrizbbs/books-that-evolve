@@ -4,7 +4,7 @@ This study examines how dominant themes in culturally visible youth fiction chan
 
 ## Data Source
 
-The source dataset is stored as `data/raw/books_goodreads.csv`. It contains 52,478 Goodreads records with bibliographic metadata, publication dates, genre labels, descriptions, ratings, rating counts, and Goodreads "Best Books Ever" voting fields.
+The source dataset is the Goodreads "Best Books Ever" Kaggle dataset: <https://www.kaggle.com/datasets/pooriamst/best-books-ever-dataset>. For local reproduction, the downloaded CSV is stored as `data/raw/books_goodreads.csv`. It contains 52,478 Goodreads records with bibliographic metadata, publication dates, genre labels, descriptions, ratings, rating counts, and Goodreads "Best Books Ever" voting fields.
 
 The raw data includes inconsistent date formats, duplicated book identifiers, uneven genre labeling, missing descriptions, and numeric fields stored as text. These issues were addressed before the analytical sample was constructed.
 
@@ -12,9 +12,9 @@ The raw data includes inconsistent date formats, duplicated book identifiers, un
 
 The final sample was built in three stages.
 
-First, the raw file was cleaned and restricted to books with a valid first publication year between 1997 and 2024. The date-cleaning procedure used `firstPublishDate` when available and used `publishDate` only as a fallback when the first publication date was missing. Mixed date formats were parsed into a single `first_publish_year` field. Values outside the project range were excluded from the cleaned dataset. Duplicate rows with the same `bookId` were collapsed by retaining the row with the highest number of ratings, then highest Goodreads vote count, then highest average rating. This produced `data/clean_books.csv` with 37,289 records.
+First, the raw file was cleaned and restricted to books with a valid first publication year between 1997 and 2024. The date-cleaning procedure used `firstPublishDate` when available and used `publishDate` only as a fallback when the first publication date was missing. Mixed date formats were parsed into a single `first_publish_year` field. Values outside the project range were excluded from the cleaned dataset. Ambiguous two-digit `firstPublishDate` values that would otherwise create unverified 2022+ publication years were excluded unless a usable edition-year signal supported the interpretation. Duplicate rows with the same `bookId` were collapsed by retaining the row with the highest number of ratings, then highest Goodreads vote count, then highest average rating. This produced `data/clean_books.csv` with 37,281 records.
 
-Second, the cleaned records were filtered to the project's substantive scope: youth fiction associated with fantasy, speculative fiction, or adjacent genre trends. A book was included if it had a youth-audience signal and at least one project theme. Youth-audience signals came from genre labels, title and description text, and a small set of known author or title checks for edge cases. Included books were assigned to one audience category: `middle_grade`, `young_adult`, or `crossover`. Crossover books are titles that are not always explicitly labeled as YA or middle grade but are widely associated with youth readership or coming-of-age reading cultures. This produced `data/scope_books.csv` with 6,998 records.
+Second, the cleaned records were filtered to the project's substantive scope: youth fiction associated with fantasy, speculative fiction, or adjacent genre trends. A book was included if it had a youth-audience signal and at least one project theme. Youth-audience signals came from genre labels, title and description text, and a small set of known author or title checks for edge cases. Included books were assigned to one audience category: `middle_grade`, `young_adult`, or `crossover`. Crossover books are titles that are not always explicitly labeled as YA or middle grade but are widely associated with youth readership or coming-of-age reading cultures. This produced `data/scope_books.csv` with 6,552 records.
 
 Third, a weighted popularity score was calculated for the scoped books. The resulting file, `data/processed_books.csv`, is the main analysis dataset.
 
@@ -27,6 +27,8 @@ Numeric fields were converted from text into usable numeric columns. The analysi
 ## Audience and Theme Classification
 
 The project uses rule-based classification rather than machine learning. This choice keeps the inclusion logic interpretable and easier to audit.
+
+The taxonomy below is the locked version used for the final era charts and exported analytical tables.
 
 Each scoped book was assigned one audience label:
 
@@ -42,16 +44,18 @@ Books were then tagged with one or more theme buckets:
 - `paranormal_romance`
 - `dystopian_post_apocalyptic`
 - `epic_high_fantasy`
-- `romantasy_fae`
+- `romantasy`
 - `science_fiction`
 
-Theme assignment used Goodreads genre labels together with keyword evidence from titles and descriptions. For example, dystopian and post-apocalyptic books were identified through genre labels such as `dystopia` and through text patterns such as "rebellion", "regime", "district", or "apocalypse". Paranormal and supernatural books were identified through genre labels and terms such as "vampire", "werewolf", "witch", "ghost", "angel", and "demon". Romantasy and fae-adjacent books required a combination of fantasy, romance, and terms such as "fae", "court", "curse", "shadow", or "kingdom".
+Theme assignment used Goodreads genre labels together with keyword evidence from titles and descriptions. Dystopian and post-apocalyptic books were identified through genre labels such as `dystopia` and through text patterns such as "rebellion", "regime", "district", or "apocalypse". Paranormal and supernatural books were defined as books with supernatural beings or forces in a real-world-adjacent setting, using signals such as `urban fantasy`, `paranormal`, `supernatural`, vampires, werewolves, ghosts, angels, or demons together with school, city, town, or family-life cues. Epic or high fantasy was defined as fantasy in a secondary-world setting, using genre labels such as `high fantasy` or `epic fantasy` and worldbuilding terms such as "kingdom", "realm", "court", "throne", or "crown". This setting distinction was used to keep secondary-world fantasy romance titles separate from the paranormal wave. Singular metaphorical uses such as "ghost haunting him" were not treated as sufficient evidence on their own. Romantasy was defined more narrowly as romance-forward fantasy in a non-real-world fantasy frame, using strong romance signals together with fantasy-world or magical-worldbuilding cues while excluding dystopian, science-fiction, and real-world paranormal settings.
 
 The scoped dataset contains:
 
-- 4,335 young adult books
-- 2,319 middle grade books
-- 344 crossover books
+- 3,963 young adult books
+- 2,317 middle grade books
+- 272 crossover books
+
+Nonfiction records without a fiction or speculative genre signal were excluded from the youth-fiction scope, even when their descriptions contained dystopian-adjacent language.
 
 Because a book can belong to multiple themes, theme counts are not mutually exclusive.
 
@@ -76,7 +80,9 @@ Rating counts and vote counts were log-transformed to reduce the dominance of ex
 
 ## Analytical Dataset
 
-The main dataset for analysis is `data/processed_books.csv`. It contains the cleaned bibliographic fields, first publication year, audience category, theme indicators, popularity score components, final `popularity_score`, and `popularity_rank`.
+The main dataset for analysis is `data/processed_books.csv`. It contains the cleaned bibliographic fields, first publication year, audience category, theme indicators, `series_flag`, popularity score components, final `popularity_score`, and `popularity_rank`.
+
+Because the available scoped records effectively end in 2021 after cleaning and filtering, the final era analysis charts use 1997-2021 as the realized analytical time span even though the project frame remains 1997-2024.
 
 The unit of analysis is the individual book, not the series. This preserves the ability to study blockbuster effects, since major series can influence theme trends through multiple highly visible entries.
 
@@ -92,6 +98,8 @@ The full processing pipeline is implemented in three scripts:
 .venv/bin/python scripts/01_clean_books.py
 .venv/bin/python scripts/02_scope_books.py
 .venv/bin/python scripts/03_score_books.py
+.venv/bin/python scripts/04_export_theme_era_outputs.py
+.venv/bin/python scripts/05_exploratory_analysis.py
 ```
 
-Summary files for each stage are stored in `data/reference/`.
+The raw Kaggle CSV and generated book-level datasets are local artifacts and are not committed to GitHub. Compact pipeline summaries are stored in `data/reference/`. Era-analysis tables and charts are exported to `outputs/tables/` and `outputs/charts/`. Rough story-finding tables and sanity-check charts are exported to `outputs/exploratory/`.
